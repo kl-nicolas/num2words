@@ -63,7 +63,7 @@ CONVERTER_CLASSES = {
     'vi_VN': lang_VN.Num2Word_VN()
 }
 
-def num2words(number, ordinal=False, lang='en'):
+def num2words(number, ordinal=False, lang='en', splitwords=False):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
@@ -71,6 +71,7 @@ def num2words(number, ordinal=False, lang='en'):
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
+    converter.splitwords = splitwords
     if ordinal:
         return converter.to_ordinal(number)
     else:

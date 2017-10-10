@@ -77,18 +77,19 @@ class Num2Word_DE(Num2Word_EU):
                         ntext += "n"
                     else:
                         ntext += "en"
-                ctext += " "
+                if not self.splitwords:
+                    ctext += " "
             val = cnum * nnum
         else:
             if nnum < 10 < cnum < 100:
                 if nnum == 1:
                     ntext = "ein"
-                ntext, ctext = ctext, ntext + "und"
-            elif cnum >= 10**6:
+                ntext, ctext = ctext, ntext + (" und" if self.splitwords else "und")
+            elif cnum >= 10**6 and not self.splitwords:
                 ctext += " "
             val = cnum + nnum
 
-        word = ctext + ntext
+        word = ctext + (" " if self.splitwords else "") + ntext
         return (word, val)
 
     def to_ordinal(self, value):
@@ -140,4 +141,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

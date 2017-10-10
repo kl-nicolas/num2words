@@ -51,7 +51,8 @@ class Num2Word_FR_CH(Num2Word_EU):
         if nnum < cnum < 100:
             if nnum % 10 == 1:
                 return ("%s et %s"%(ctext, ntext), cnum + nnum)
-            return ("%s-%s"%(ctext, ntext), cnum + nnum)
+            if not self.splitwords:
+                return ("%s-%s"%(ctext, ntext), cnum + nnum)
         elif nnum > cnum:
             return ("%s %s"%(ctext, ntext), cnum * nnum)
         return ("%s %s"%(ctext, ntext), cnum + nnum)

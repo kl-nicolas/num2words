@@ -33,4 +33,5 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(num2words(880, lang='fr_CH'), "huit cents huitante")
         self.assertEqual(num2words(91, ordinal=True, lang='fr_CH'), "nonante et unième")
         self.assertEqual(num2words(53, lang='fr_CH'), "cinquante-trois")
-
+        self.assertEqual(num2words(53, lang='fr_CH', splitwords=True), "cinquante trois")
+        self.assertEqual(num2words(49, ordinal=True, lang='fr_CH', splitwords=True), "quarante neuvième")

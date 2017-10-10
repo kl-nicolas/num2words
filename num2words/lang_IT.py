@@ -45,13 +45,22 @@ EXPONENT_PREFIXES = [
 # Utils
 # =====
 
-def phonetic_contraction(string):
-    return (string
+def phonetic_contraction(string, splitwords):
+    if splitwords:
+        return (string
+        .replace("a o", "o") # ex. "settantaotto"
+        .replace("i o", "o") # ex. "ventiotto"
+        .replace("i u", "u") # ex. "ventiuno"
+        .replace("a u", "u") # ex. "trentauno"
+        )
+    else:
+        return (string
         .replace("oo", "o") # ex. "centootto"
         .replace("ao", "o") # ex. "settantaotto"
         .replace("io", "o") # ex. "ventiotto"
+        .replace("iu", "u") # ex. "ventiuno"
         .replace("au", "u") # ex. "trentauno"
-    )
+        )
 
 def exponent_length_to_string(exponent_length):
     # We always assume `exponent` to be a multiple of 3. If it's not true, then
@@ -111,25 +120,25 @@ class Num2Word_IT:
         else:
             prefix = CARDINAL_WORDS[tens][:-1] + "anta"
         postfix = omitt_if_zero(CARDINAL_WORDS[units])
-        return phonetic_contraction(prefix + postfix)
+        return phonetic_contraction(prefix + (" " if self.splitwords else "") + postfix, self.splitwords)
 
     def hundreds_to_cardinal(self, number):
         hundreds = number // 100
         prefix = "cento"
         if hundreds != 1:
-            prefix = CARDINAL_WORDS[hundreds] + prefix
+            prefix = CARDINAL_WORDS[hundreds] + (" " if self.splitwords else "") + prefix
         postfix = omitt_if_zero(self.to_cardinal(number % 100))
-        return phonetic_contraction(prefix + postfix)
+        return phonetic_contraction(prefix + (" " if self.splitwords else "") + postfix, self.splitwords)
 
     def thousands_to_cardinal(self, number):
         thousands = number // 1000
         if thousands == 1:
             prefix = "mille"
         else:
-            prefix = self.to_cardinal(thousands) + "mila"
+            prefix = self.to_cardinal(thousands) + (" " if self.splitwords else "") + "mila"
         postfix = omitt_if_zero(self.to_cardinal(number % 1000))
         # "mille" and "mila" don't need any phonetic contractions
-        return prefix + postfix
+        return prefix + (" " if self.splitwords else "") + postfix
 
     def big_number_to_cardinal(self, number):
         digits = [c for c in str(number)]

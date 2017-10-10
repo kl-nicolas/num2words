@@ -41,6 +41,10 @@ class Num2WordsDETest(TestCase):
         self.assertEqual(num2words(2000000, lang='de'), "zwei millionen")
         self.assertEqual(num2words(4000000000, lang='de'), "vier milliarden")
 
+    def test_cardinal_splitwords(self):
+        self.assertEqual(num2words(23458, lang='de'), "dreiundzwanzigtausendvierhundertachtundfünfzig")
+        self.assertEqual(num2words(23458, lang='de', splitwords=True), "drei und zwanzig tausend vier hundert acht und fünfzig")
+
     def test_cardinal_for_decimal_number(self):
         self.assertEqual(num2words(3.486, lang='de'), "drei Komma vier acht")
 

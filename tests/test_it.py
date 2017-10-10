@@ -60,6 +60,7 @@ class Num2WordsITTest(TestCase):
 
     def test_20_to_99(self):
         self.assertEqual(num2words(20, lang="it"), "venti")
+        self.assertEqual(num2words(21, lang="it"), "ventuno")
         self.assertEqual(num2words(23, lang="it"), "ventitré")
         self.assertEqual(num2words(28, lang="it"), "ventotto")
         self.assertEqual(num2words(31, lang="it"), "trentuno")
@@ -103,6 +104,53 @@ class Num2WordsITTest(TestCase):
         self.assertEqual(num2words(1234567890, lang="it"), "un miliardo, duecentotrentaquattro milioni e cinquecentosessantasettemilaottocentonovanta")
         self.assertEqual(num2words(1000000000000, lang="it"), "un bilione")
         self.assertEqual(num2words(123456789012345678901234567890, lang="it"), "centoventitré quadriliardi, quattrocentocinquantasei quadrilioni, settecentottantanove triliardi, dodici trilioni, trecentoquarantacinque biliardi, seicentosettantotto bilioni, novecentouno miliardi, duecentotrentaquattro milioni e cinquecentosessantasettemilaottocentonovanta")
+
+    def test_20_to_99_split(self):
+        self.assertEqual(num2words(20, lang="it", splitwords=True), "venti")
+        self.assertEqual(num2words(21, lang="it", splitwords=True), "ventuno")
+        self.assertEqual(num2words(23, lang="it", splitwords=True), "venti tre")
+        self.assertEqual(num2words(28, lang="it", splitwords=True), "ventotto")
+        self.assertEqual(num2words(31, lang="it", splitwords=True), "trentuno")
+        self.assertEqual(num2words(40, lang="it", splitwords=True), "quaranta")
+        self.assertEqual(num2words(66, lang="it", splitwords=True), "sessanta sei")
+        self.assertEqual(num2words(92, lang="it", splitwords=True), "novanta due")
+
+    def test_100_to_999_split(self):
+        self.assertEqual(num2words(100, lang="it", splitwords=True), "cento")
+        self.assertEqual(num2words(111, lang="it", splitwords=True), "cento undici")
+        self.assertEqual(num2words(150, lang="it", splitwords=True), "cento cinquanta")
+        self.assertEqual(num2words(196, lang="it", splitwords=True), "cento novanta sei")
+        self.assertEqual(num2words(200, lang="it", splitwords=True), "due cento")
+        self.assertEqual(num2words(210, lang="it", splitwords=True), "due cento dieci")
+        self.assertEqual(num2words(701, lang="it", splitwords=True), "sette cento uno")
+
+    def test_1000_to_9999_split(self):
+        self.assertEqual(num2words(1000, lang="it", splitwords=True), "mille")
+        self.assertEqual(num2words(1001, lang="it", splitwords=True), "mille uno")
+        self.assertEqual(num2words(1500, lang="it", splitwords=True), "mille cinque cento")
+        self.assertEqual(num2words(7378, lang="it", splitwords=True), "sette mila tre cento settantotto")
+        self.assertEqual(num2words(2000, lang="it", splitwords=True), "due mila")
+        self.assertEqual(num2words(2100, lang="it", splitwords=True), "due mila cento")
+        self.assertEqual(num2words(6870, lang="it", splitwords=True), "sei mila otto cento settanta")
+        self.assertEqual(num2words(10000, lang="it", splitwords=True), "dieci mila")
+        self.assertEqual(num2words(98765, lang="it", splitwords=True), "novantotto mila sette cento sessanta cinque")
+        self.assertEqual(num2words(100000, lang="it", splitwords=True), "cento mila")
+        self.assertEqual(num2words(523456, lang="it", splitwords=True), "cinque cento venti tre mila quattro cento cinquanta sei")
+
+    def test_big_split(self):
+        self.assertEqual(num2words(1000000, lang="it", splitwords=True), "un milione")
+        self.assertEqual(num2words(1000007, lang="it", splitwords=True), "un milione e sette")
+        self.assertEqual(num2words(1200000, lang="it", splitwords=True), "un milione e due cento mila")
+        self.assertEqual(num2words(3000000, lang="it", splitwords=True), "tre milioni")
+        self.assertEqual(num2words(3000005, lang="it", splitwords=True), "tre milioni e cinque")
+        self.assertEqual(num2words(3800000, lang="it", splitwords=True), "tre milioni e otto cento mila")
+        self.assertEqual(num2words(1000000000, lang="it", splitwords=True), "un miliardo")
+        self.assertEqual(num2words(1000000017, lang="it", splitwords=True), "un miliardo e diciassette")
+        self.assertEqual(num2words(2000000000, lang="it", splitwords=True), "due miliardi")
+        self.assertEqual(num2words(2000001000, lang="it", splitwords=True), "due miliardi e mille")
+        self.assertEqual(num2words(1234567890, lang="it", splitwords=True), "un miliardo, due cento trenta quattro milioni e cinque cento sessanta sette mila otto cento novanta")
+        self.assertEqual(num2words(1000000000000, lang="it", splitwords=True), "un bilione")
+        self.assertEqual(num2words(123456789012345678901234567890, lang="it", splitwords=True), "cento venti tre quadriliardi, quattro cento cinquanta sei quadrilioni, sette cento ottanta nove triliardi, dodici trilioni, tre cento quaranta cinque biliardi, sei cento settantotto bilioni, nove cento uno miliardi, due cento trenta quattro milioni e cinque cento sessanta sette mila otto cento novanta")
 
     def test_nth_1_to_99(self):
         self.assertEqual(num2words(1, lang="it", ordinal=True), "primo")

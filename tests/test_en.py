@@ -22,6 +22,10 @@ class Num2WordsENTest(TestCase):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
         self.assertEqual(num2words(199), "one hundred and ninety-nine")
 
+    def test_splitwords(self):
+        self.assertEqual(num2words(199, splitwords=True), "one hundred and ninety nine")
+        self.assertEqual(num2words(1248, splitwords=True), "one thousand, two hundred and forty eight")
+
     def test_cardinal_for_float_number(self):
         # issue 24
         self.assertEqual(num2words(12.50), "twelve point five zero")
